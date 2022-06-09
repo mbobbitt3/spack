@@ -363,6 +363,22 @@ def print_versions(pkg):
                 color.cprint(line)
 
 
+def print_cves(pkg):
+    cpe = []
+    for i in range(len(pkg.versions)):
+        for v in pkg.versions:
+            cpe[i] = 'cpe:2.3:a:tmux_project' + str(pkg) + ':' + str(pkg.versions[v])
+
+    for eachCPE in cpe:
+        r = nvdlib.searchCVE(cpeName=cpe[eachCPE], key=api_key)
+        for eachCVE in r:
+            # by default includes V2 scores that don't apply to specified version
+            if eachCVE.score[0] == 'V3':  # and eachCVE.score[2] == "CRITICAL":
+                print(eachCVE.id, str(eachCVE.score[1]), eachCVE.url)
+            else:
+                pass
+
+
 def print_virtuals(pkg):
     """output virtual packages"""
 
@@ -387,7 +403,7 @@ def print_virtuals(pkg):
 
 def info(parser, args):
     pkg = spack.repo.get(args.package)
-
+    print_cves(pkg)
     # Output core package information
     header = section_title(
         '{0}:   '
@@ -401,8 +417,7 @@ def info(parser, args):
     else:
         color.cprint("    None")
 
-    color.cprint(section_title('Homepage: ') + pkg.homepage)
-
+        color.cprint(section_title('Homepage: ') + pkg.homepage)
     # Now output optional information in expected order
     sections = [
         (args.all or args.maintainers, print_maintainers),
