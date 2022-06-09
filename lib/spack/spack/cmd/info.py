@@ -364,10 +364,10 @@ def print_versions(pkg):
 
 
 def print_cves(pkg):
-	cpe = []
+    cpe = []
     for i in range(len(pkg.versions)):
         for v in pkg.versions:
-            cpe[i] = 'cpe:2.3:a:tmux_project' + str(pkg) + ':' + v)
+            cpe[i] = 'cpe:2.3:a:tmux_project' + str(pkg) + ':' + v
 
     for eachCPE in cpe:
         r = nvdlib.searchCVE(cpeName=cpe[eachCPE], key=api_key)
