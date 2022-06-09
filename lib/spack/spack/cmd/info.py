@@ -7,7 +7,7 @@ from __future__ import print_function
 
 import inspect
 import textwrap
-
+import nvdlib
 from six.moves import zip_longest
 
 import llnl.util.tty as tty
@@ -365,10 +365,9 @@ def print_versions(pkg):
 
 def print_cves(pkg):
     cpe = []
-    for i in range(len(pkg.versions)):
-        for v in pkg.versions:
-            cpe[i] = 'cpe:2.3:a:tmux_project' + str(pkg) + ':' + v
-
+    for v in pkg.versions:
+        cpe.append('cpe:2.3:a:tmux_project:' + str(pkg.name) + ':' + str(v))
+    
     for eachCPE in cpe:
         r = nvdlib.searchCVE(cpeName=cpe[eachCPE], key=api_key)
         for eachCVE in r:
