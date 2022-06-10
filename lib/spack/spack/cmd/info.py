@@ -53,6 +53,7 @@ def setup_parser(subparser):
         ('--no-dependencies', 'do not ' + print_dependencies.__doc__),
         ('--no-variants', 'do not ' + print_variants.__doc__),
         ('--no-versions', 'do not ' + print_versions.__doc__),
+        ('--cves', print_cves.__doc__),
         ('--phases', print_phases.__doc__),
         ('--tags', print_tags.__doc__),
         ('--tests', print_tests.__doc__),
@@ -364,23 +365,26 @@ def print_versions(pkg):
                 line = version('    {0}'.format(pad(v))) + color.cescape(url)
                 color.cprint(line)
 
-
 def print_cves(pkg):
+    color.cprint('')
+    color.cprint(section_title('Known CVEs: '))
     cpe = []
-    r = []
+
     for v in pkg.versions:
-        cpe.append('cpe:2.3:a:tmux_project:' + str(pkg.name) + ':' + str(v))
+        cpe.append('cpe:2.3:a:tmux_project:' + str(pkg.name) + ':' + str(v) + ":*:*:*:*:*:*:*")
 
     for i in range(len(cpe)):
-        r = nvdlib.searchCVE(cpeName=cpe[i], key=api_key)
-        # by default includes V2 scores that don't apply to specified version
-        
-    for i in r:
-        if r[i].score[0] == 'V3':  # and eachCVE.score[2] == "CRITICAL":
-            print(r[i].id, str(r[i].score[1]), r[i].url)
+        r = (nvdlib.searchCVE(cpeName=cpe[i], key=api_key))
+
+    # by default includes V2 scores that don't apply to specified version
+        for eachCVE in r:
+            print(cpe[i][28:32], eachCVE.id, str(eachCVE.score[0]), str(eachCVE.score[1]), eachCVE.url)
+        # and eachCVE.score[2] == "CRITICAL":
+        '''if eachCVE.score[0] == 'V3': #and len(eachCVE.id) == len(set(eachCVE.id)):
+            print(eachCVE.id, str(eachCVE.score[1]), eachCVE.url)
         else:
             pass
-
+    '''
 
 def print_virtuals(pkg):
     """output virtual packages"""
@@ -403,10 +407,8 @@ def print_virtuals(pkg):
     else:
         color.cprint("    None")
 
-
 def info(parser, args):
     pkg = spack.repo.get(args.package)
-    print_cves(pkg)
     # Output core package information
     header = section_title(
         '{0}:   '
@@ -420,13 +422,15 @@ def info(parser, args):
     else:
         color.cprint("    None")
 
-        color.cprint(section_title('Homepage: ') + pkg.homepage)
+    color.cprint(section_title('Homepage: ') + pkg.homepage)
+
     # Now output optional information in expected order
     sections = [
         (args.all or args.maintainers, print_maintainers),
         (args.all or args.detectable, print_detectable),
         (args.all or args.tags, print_tags),
         (args.all or not args.no_versions, print_versions),
+        (args.all or args.cves, print_cves),
         (args.all or not args.no_variants, print_variants),
         (args.all or args.phases, print_phases),
         (args.all or not args.no_dependencies, print_dependencies),
@@ -437,4 +441,5 @@ def info(parser, args):
         if print_it:
             func(pkg)
 
+    print_cves(pkg)
     color.cprint('')
