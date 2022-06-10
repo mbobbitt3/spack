@@ -27,6 +27,8 @@ level = 'short'
 header_color = '@*b'
 plain_format = '@.'
 
+api_key = "92e8afaf-85fd-4a65-a862-3bedf09dcd87"
+
 
 def padder(str_list, extra=0):
     """Return a function to pad elements of a list."""
@@ -365,17 +367,20 @@ def print_versions(pkg):
 
 def print_cves(pkg):
     cpe = []
+    r = []
     for v in pkg.versions:
         cpe.append('cpe:2.3:a:tmux_project:' + str(pkg.name) + ':' + str(v))
-    
-    for eachCPE in cpe:
-        r = nvdlib.searchCVE(cpeName=cpe[eachCPE], key=api_key)
-        for eachCVE in r:
-            # by default includes V2 scores that don't apply to specified version
-            if eachCVE.score[0] == 'V3':  # and eachCVE.score[2] == "CRITICAL":
-                print(eachCVE.id, str(eachCVE.score[1]), eachCVE.url)
-            else:
-                pass
+
+    for i in range(len(cpe)):
+        r = nvdlib.searchCVE(cpeName=cpe[i], key=api_key)
+        # by default includes V2 scores that don't apply to specified version
+        
+    for i in r:
+        if r[i].score[0] == 'V3':  # and eachCVE.score[2] == "CRITICAL":
+            print(r[i].id, str(r[i].score[1]), r[i].url)
+        else:
+            pass
+
 
 def print_virtuals(pkg):
     """output virtual packages"""
