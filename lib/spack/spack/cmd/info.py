@@ -369,14 +369,16 @@ def print_versions(pkg):
 def print_cves(pkg):
     color.cprint('')
     color.cprint(section_title('Known CVEs: '))
+    v = []
+    for i in pkg.versions:
+        v.append(i)
+    
     for i in pkg.cpe:
         r = (nvdlib.searchCVE(cpeName=pkg.cpe[i], key=api_key))
-
     # by default includes V2 scores that don't apply to specified version
-        for v in pkg.cpe:
-            for eachCVE in r:
-                if eachCVE.score[0] == 'V3': #and len(eachCVE.id) == len(set(eachCVE.id)):
-                    print(v, eachCVE.id, str(eachCVE.score[0]), str(eachCVE.score[1]), eachCVE.url)
+        for eachCVE in r:
+            if eachCVE.score[0] == 'V3' and eachCVE.score[1] > 7.5: 
+                print(i, eachCVE.id, str(eachCVE.score[0]), str(eachCVE.score[1]), eachCVE.url)
         # and eachCVE.score[2] == "CRITICAL":
         '''if eachCVE.score[0] == 'V3': #and len(eachCVE.id) == len(set(eachCVE.id)):
             print(eachCVE.id, str(eachCVE.score[1]), eachCVE.url)
