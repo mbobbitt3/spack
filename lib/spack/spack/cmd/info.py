@@ -369,9 +369,6 @@ def print_versions(pkg):
 def print_cves(pkg):
     color.cprint('')
     color.cprint(section_title('Known CVEs: '))
-    v = []
-    for i in pkg.versions:
-        v.append(i)
     
     for i in pkg.cpe:
         r = (nvdlib.searchCVE(cpeName=pkg.cpe[i], key=api_key))

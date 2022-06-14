@@ -12,7 +12,6 @@ class Httpd(AutotoolsPackage):
 
     homepage = "https://httpd.apache.org/"
     url      = "https://archive.apache.org/dist/httpd/httpd-2.4.43.tar.bz2"
-
     version('2.4.43', sha256='a497652ab3fc81318cdc2a203090a999150d86461acff97c1065dc910fe10f43')
     version('2.4.41', sha256='133d48298fe5315ae9366a0ec66282fa4040efa5d566174481077ade7d18ea40')
     version('2.4.39', sha256='b4ca9d05773aa59b54d66cd8f4744b945289f084d3be17d7981d1783a5decfa2')
@@ -26,6 +25,12 @@ class Httpd(AutotoolsPackage):
     depends_on('apr-util')
     depends_on('pcre')
 
+    cpe = {
+        '2.4.38':'cpe:2.3:a:apache:http_server:2.4.38:*:*:*:*:*:*:*',
+        '2.4.39':'cpe:2.3:a:apache:http_server:2.4.39:*:*:*:*:*:*:*',
+        '2.4.41':'cpe:2.3:a:apache:http_server:2.4.41:*:*:*:*:*:*:*',
+        '2.4.43':'cpe:2.3:a:apache:http_server:2.4.43:*:*:*:*:*:*:*'
+        }
     def configure_args(self):
         spec = self.spec
         config_args = [

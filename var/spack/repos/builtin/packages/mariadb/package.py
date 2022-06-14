@@ -66,7 +66,17 @@ class Mariadb(CMakePackage):
           sha256='760fd19cd8d4d756a0799ed9110cfd2898237e43835fefe3668079c5b87fc36d',
           working_dir='libmariadb',
           when='@10.2.8:10.4.12')
-
+    cpe = {
+        '5.5.49':'cpe:2.3:a:mariadb:mariadb:5.5.49:*:*:*:*:*:*:*',
+        '5.5.56':'cpe:2.3:a:mariadb:mariadb:5.5.56:*:*:*:*:*:*:*',
+        '10.1.14':'cpe:2.3:a:mariadb:mariadb:10.1.14:*:*:*:*:*:*:*',
+        '10.1.23':'cpe:2.3:a:mariadb:mariadb:10.1.23:*:*:*:*:*:*:*',
+        '10.2.8':'cpe:2.3:a:mariadb:mariadb:10.2.8:*:*:*:*:*:*:*',
+        '10.4.7':'cpe:2.3:a:mariadb:mariadb:10.4.7:*:*:*:*:*:*:*',
+        '10.4.8':'cpe:2.3:a:mariadb:mariadb:10.4.8:*:*:*:*:*:*:*',
+        '10.4.12':'cpe:2.3:a:mariadb:mariadb:10.4.12:*:*:*:*:*:*:*',
+        '10.8.2':'cpe:2.3:a:mariadb:mariadb:10.8.2:*:*:*:*:*:*:*'
+    }
     def cmake_args(self):
         args = []
 
