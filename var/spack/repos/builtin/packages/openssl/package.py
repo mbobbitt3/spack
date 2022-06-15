@@ -85,6 +85,30 @@ class Openssl(Package):   # Uses Fake Autotools, should subclass Package
     version('1.0.1h', sha256='9d1c8a9836aa63e2c6adb684186cbd4371c9e9dcc01d6e3bb447abf2d4d3d093', deprecated=True)
     version('1.0.1e', sha256='f74f15e8c8ff11aa3d5bb5f276d202ec18d7246e95f961db76054199c69c1ae3', deprecated=True)
 
+    cpe = {
+        '3.0.2':'cpe:2.3:a:openssl:openssl:3.0.2:*:*:*:*:*:*:*', 
+        '3.0.1':'cpe:2.3:a:openssl:openssl:3.0.1:*:*:*:*:*:*:*', 
+        '3.0.0':'cpe:2.3:a:openssl:openssl:3.0.0:*:*:*:*:*:*:*', 
+        '1.1.1o':'cpe:2.3:a:openssl:openssl:1.1.1o:-:*:*:*:*:*:*',
+        '1.1.1n':'cpe:2.3:a:openssl:openssl:1.1.1n:-:*:*:*:*:*:*',
+        '1.1.1m':'cpe:2.3:a:openssl:openssl:1.1.1m:-:*:*:*:*:*:*',
+        '1.1.1l':'cpe:2.3:a:openssl:openssl:1.1.1l:-:*:*:*:*:*:*',
+        '1.1.1k':'cpe:2.3:a:openssl:openssl:1.1.1k:-:*:*:*:*:*:*',
+        '1.1.1j':'cpe:2.3:a:openssl:openssl:1.1.1j:-:*:*:*:*:*:*',
+        '1.1.1i':'cpe:2.3:a:openssl:openssl:1.1.1i:-:*:*:*:*:*:*',
+        '1.1.1h':'cpe:2.3:a:openssl:openssl:1.1.1h:-:*:*:*:*:*:*',
+        '1.1.1g':'cpe:2.3:a:openssl:openssl:1.1.1g:-:*:*:*:*:*:*',
+        '1.1.1f':'cpe:2.3:a:openssl:openssl:1.1.1f:-:*:*:*:*:*:*',
+        '1.1.1e':'cpe:2.3:a:openssl:openssl:1.1.1e:-:*:*:*:*:*:*',
+        '1.1.1d':'cpe:2.3:a:openssl:openssl:1.1.1d:-:*:*:*:*:*:*',
+        '1.1.1c':'cpe:2.3:a:openssl:openssl:1.1.1c:-:*:*:*:*:*:*',
+        '1.1.1b':'cpe:2.3:a:openssl:openssl:1.1.1b:-:*:*:*:*:*:*',
+        '1.1.1a':'cpe:2.3:a:openssl:openssl:1.1.1a:-:*:*:*:*:*:*',
+        '1.1.1':'cpe:2.3:a:openssl:openssl:1.1.1:-:*:*:*:*:*:*' 
+
+    }
+
+
     variant('certs', default='system',
             values=('mozilla', 'system', 'none'), multi=False,
             description=('Use certificates from the ca-certificates-mozilla '
