@@ -26,7 +26,17 @@ class Php(AutotoolsPackage):
     version('7.2.25',    sha256='049b2d291c45cb889d15fcd2bac6da7d15ca5d535d272d2f8879fb834bbf276e')
     version('7.2.24',    sha256='334c9915733f6a29e1462f64038b1b4b1b21cb18f4f5f980add86792b5550ab3')
     version('7.1.33',    sha256='f80a795a09328a9441bae4a8a60fa0d6d43ec5adc98f5aa5f51d06f4522c07fe')
-
+    cpe = {
+        '7.4.1':'cpe:2.3:a:php:php:7.4.1:-:*:*:*:*:*:*',  
+        '7.4.0':'cpe:2.3:a:php:php:7.4.0:-:*:*:*:*:*:*',  
+        '7.3.13':'cpe:2.3:a:php:php:7.3.13:-:*:*:*:*:*:*', 
+        '7.3.12':'cpe:2.3:a:php:php:7.3.12:-:*:*:*:*:*:*', 
+        '7.3.11':'cpe:2.3:a:php:php:7.3.11:-:*:*:*:*:*:*', 
+        '7.2.26':'cpe:2.3:a:php:php:7.2.26:-:*:*:*:*:*:*', 
+        '7.2.25':'cpe:2.3:a:php:php:7.2.25:-:*:*:*:*:*:*', 
+        '7.2.24':'cpe:2.3:a:php:php:7.2.24:-:*:*:*:*:*:*', 
+        '7.1.33':'cpe:2.3:a:php:php:7.1.33:-:*:*:*:*:*:*'
+    }
     depends_on('autoconf',   type='build')
     depends_on('automake',   type='build')
     depends_on('libtool',    type='build')
