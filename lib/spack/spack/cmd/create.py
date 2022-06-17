@@ -96,7 +96,7 @@ class BundlePackageTemplate(object):
 
     url_def = "    # There is no URL since there is no code to download."
     body_def = "    # There is no need for install() since there is no code."
-    cpe_def = """{"[verison]":"cpe:2.3:a:[vendor]:[package name]:[version]"}"""
+    cpe_def = """{"[version]":"cpe:2.3:a:[vendor]:[package name]:[version]"}"""
     def __init__(self, name, versions):
         self.name       = name
         self.class_name = mod_to_class(name)
