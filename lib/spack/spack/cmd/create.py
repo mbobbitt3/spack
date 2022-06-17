@@ -70,8 +70,11 @@ class {class_name}({base_class_name}):
     # FIXME: Add a list of GitHub accounts to
     # notify when the package is updated.
     # maintainers = ['github_user1', 'github_user2']
-
 {versions}
+
+    #Consult https://cpe.mitre.org/specification/ for CPE format
+    #CPEs in dictionary should be in format "[verison]":"cpe:2.3:a:[vendor]:[package name]:[version]"
+    cpe = {cpe_def}
 
 {dependencies}
 
@@ -92,12 +95,11 @@ class BundlePackageTemplate(object):
 
     url_def = "    # There is no URL since there is no code to download."
     body_def = "    # There is no need for install() since there is no code."
-
+    cpe_def = """{"[verison]":"cpe:2.3:a:[vendor]:[package name]:[version]"}"""
     def __init__(self, name, versions):
         self.name       = name
         self.class_name = mod_to_class(name)
         self.versions   = versions
-
     def write(self, pkg_path):
         """Writes the new package file."""
 
@@ -110,8 +112,8 @@ class BundlePackageTemplate(object):
                 url_def=self.url_def,
                 versions=self.versions,
                 dependencies=self.dependencies,
-                body_def=self.body_def))
-
+                body_def=self.body_def,
+                cpe_def=self.cpe_def))
 
 class PackageTemplate(BundlePackageTemplate):
     """Provides the default values to be used for the package file template"""
