@@ -74,6 +74,7 @@ class {class_name}({base_class_name}):
 
     #Consult https://cpe.mitre.org/specification/ for CPE format
     #CPEs in dictionary should be in format "[verison]":"cpe:2.3:a:[vendor]:[package name]:[version]"
+    #If you want to find the CPE for your package you can search for it here: https://nvd.nist.gov/products/cpe/search
     cpe = {cpe_def}
 
 {dependencies}
