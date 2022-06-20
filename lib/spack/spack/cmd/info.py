@@ -349,7 +349,6 @@ def print_versions(pkg):
         for v in reversed(sorted(pkg.versions)):
             if pkg.has_code:
                 url = fs.for_package_version(pkg, v)
-                print("package version url is: ", url)
             if pkg.versions[v].get('deprecated', False):
                 deprecated.append((v, url))
             else:
