@@ -16,7 +16,7 @@ class Libiconv(AutotoolsPackage, GNUMirrorPackage):
     version('1.16', sha256='e6a1b1b589654277ee790cce3734f07876ac4ccfaecbee8afa0b649cf529cc04')
     version('1.15', sha256='ccf536620a45458d26ba83887a983b96827001e92a13847b45e4925cc8913178')
     version('1.14', sha256='72b24ded17d687193c3366d0ebe7cde1e6b18f0df8c55438ac95be39e8a30613')
-
+    cpe = {}
     variant('libs', default='shared,static', values=('shared', 'static'),
             multi=True, description='Build shared libs, static libs or both')
 
