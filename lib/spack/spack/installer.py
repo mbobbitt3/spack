@@ -55,6 +55,7 @@ import spack.package_prefs as prefs
 import spack.repo
 import spack.store
 import spack.util.executable
+import nvdlib
 from spack.util.environment import EnvironmentModifications, dump_environment
 from spack.util.executable import which
 from spack.util.timer import Timer
@@ -84,6 +85,7 @@ STATUS_DEQUEUED = 'dequeued'
 #: queue invariants).
 STATUS_REMOVED = 'removed'
 
+api_key = "92e8afaf-85fd-4a65-a862-3bedf09dcd87"
 
 class InstallAction(object):
     #: Don't perform an install
@@ -1531,6 +1533,23 @@ class PackageInstaller(object):
         # install directory, put the old prefix
         # back on failure
         return InstallAction.OVERWRITE
+        
+    def cve_search(pkg):
+        task = self._pop_task()
+        pkg = task.pkg
+        version = pkg.version
+        r = (nvdlib.searchCVE(cpeName=self.cpe[str(version)], key=api_key))
+        # by default includes V2 scores that don't apply to specified version
+        for eachCVE in r:
+            if eachCVE.score[0] == 'V3' and eachCVE.score[1] > 7.5: 
+                print(version, eachCVE.id, str(eachCVE.score[0]), str(eachCVE.score[1]), eachCVE.url)
+            # and eachCVE.score[2] == "CRITICAL":
+        '''
+        if eachCVE.score[0] == 'V3': #and len(eachCVE.id) == len(set(eachCVE.id)):
+                print(eachCVE.id, str(eachCVE.score[1]), eachCVE.url)
+            else:
+                pass
+        '''
 
     def install(self):
         """
@@ -1538,7 +1557,6 @@ class PackageInstaller(object):
 
         Args:
             pkg (spack.package_base.Package): the package to be built and installed"""
-
         self._init_queue()
         fail_fast_err = 'Terminating after first install failure'
         single_explicit_spec = len(self.build_requests) == 1
@@ -1560,6 +1578,12 @@ class PackageInstaller(object):
             keep_prefix = install_args.get('keep_prefix')
 
             pkg, pkg_id, spec = task.pkg, task.pkg_id, task.pkg.spec
+            version = pkg.version
+            r = (nvdlib.searchCVE(cpeName=self.cpe[str(version)], key=api_key))
+            # by default includes V2 scores that don't apply to specified version
+            for eachCVE in r:
+                if eachCVE.score[0] == 'V3' and eachCVE.score[1] > 7.5: 
+                    print(version, eachCVE.id, str(eachCVE.score[0]), str(eachCVE.score[1]), eachCVE.url)
             term_title.next_pkg(pkg)
             term_title.set('Processing {0}'.format(pkg.name))
             tty.debug('Processing {0}: task={1}'.format(pkg_id, task))
